@@ -197,6 +197,9 @@ func (w *FileLogWriter) _rotate() error {
 						os.Rename(fname, nfname)
 					}
 				}
+				if fname == "" {
+					fname = w.filename + ".1"
+				}
 			}
 
 			w.file.Close()
