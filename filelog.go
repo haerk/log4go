@@ -100,7 +100,7 @@ func NewFileLogWriter(fname string, rotate bool) *FileLogWriter {
 					(w.daily && now.Day() != w.daily_opendate) {
 					if err := w._rotate(); err != nil {
 						fmt.Fprintf(os.Stderr, "FileLogWriter(%q): %s\n", w.filename, err)
-						return
+						continue
 					}
 				}
 
@@ -108,7 +108,7 @@ func NewFileLogWriter(fname string, rotate bool) *FileLogWriter {
 				n, err := fmt.Fprint(w.file, FormatLogRecord(w.format, rec))
 				if err != nil {
 					fmt.Fprintf(os.Stderr, "FileLogWriter(%q): %s\n", w.filename, err)
-					return
+					continue
 				}
 
 				// Update the counts
